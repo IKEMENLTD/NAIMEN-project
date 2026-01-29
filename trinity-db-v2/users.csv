@@ -1,0 +1,2 @@
+user_id,name,created_at,perception,judgment,execution,total,growth_coef,last_updated,meta
+uuid-001,社長,2026-01-28,0,0,0,0,1.0,2026-01-28T22:00:00,"{""target_score"":80,""timezone"":""Asia/Tokyo"",""last_observation"":null,""last_judgment"":null,""last_execution"":null,""streak_days"":0}"

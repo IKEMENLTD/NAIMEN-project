@@ -1,0 +1,276 @@
+#!/usr/bin/env node
+/**
+ * The Executor - 実行力を評価するエージェント
+ * 
+ * 役割: 選択を現実にする力を測定する
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+// 設定
+const CONFIG = {
+  GAS_API_URL: process.env.TRINITY_API_URL || 'YOUR_GAS_API_URL_HERE',
+  USER_ID: process.env.USER_ID || 'uuid-001',
+  WORKSPACE: process.env.WORKSPACE || '/root/clawd',
+  TASKS_FILE: 'tasks.json'
+};
+
+function getTimestamp() {
+  return new Date().toISOString();
+}
+
+// ユーティリティ: GAS API呼び出し
+async function callAPI(endpoint, method = 'GET', data = null) {
+  const url = `${CONFIG.GAS_API_URL}?path=${endpoint}`;
+  
+  const options = {
+    method: method,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  
+  if (method === 'POST' && data) {
+    options.body = JSON.stringify(data);
+  }
+  
+  try {
+    const response = await fetch(url, options);
+    return await response.json();
+  } catch (error) {
+    console.error(`[Executor] API call failed:`, error.message);
+    return null;
+  }
+}
+
+// タスク記録ファイルの読み込み
+function loadTasks() {
+  const filePath = path.join(CONFIG.WORKSPACE, CONFIG.TASKS_FILE);
+  
+  if (!fs.existsSync(filePath)) {
+    return [];
+  }
+  
+  const content = fs.readFileSync(filePath, 'utf-8');
+  return JSON.parse(content);
+}
+
+// タスク記録ファイルの保存
+function saveTasks(tasks) {
+  const filePath = path.join(CONFIG.WORKSPACE, CONFIG.TASKS_FILE);
+  fs.writeFileSync(filePath, JSON.stringify(tasks, null, 2), 'utf-8');
+}
+
+// 完遂率を計算
+function calculateCompletionRate(tasks) {
+  if (tasks.length === 0) return 0;
+  
+  const completed = tasks.filter(t => t.status === 'completed').length;
+  return Math.round((completed / tasks.length) * 100);
+}
+
+// 判断→実行のタイムラグを評価
+function evaluateTimeLag(tasks) {
+  const recentTasks = tasks.slice(-10); // 最近10件
+  
+  const lags = recentTasks
+    .filter(t => t.declared_at && t.started_at)
+    .map(t => {
+      const declared = new Date(t.declared_at);
+      const started = new Date(t.started_at);
+      return (started - declared) / (1000 * 60 * 60); // 時間単位
+    });
+  
+  if (lags.length === 0) return 50; // デフォルト
+  
+  const avgLag = lags.reduce((a, b) => a + b, 0) / lags.length;
+  
+  // 1時間以内 = 100点, 24時間 = 50点, 48時間以上 = 0点
+  let score = 100;
+  if (avgLag > 1) {
+    score = Math.max(0, 100 - (avgLag - 1) * 2);
+  }
+  
+  return Math.round(score);
+}
+
+// 継続力を評価
+function evaluateContinuity(tasks) {
+  // 習慣タスクの継続日数をチェック
+  const habitTasks = tasks.filter(t => t.is_habit);
+  
+  if (habitTasks.length === 0) return 70; // デフォルト
+  
+  // 最長連続日数を計算
+  let maxStreak = 0;
+  let currentStreak = 0;
+  let lastDate = null;
+  
+  habitTasks
+    .sort((a, b) => new Date(a.completed_at) - new Date(b.completed_at))
+    .forEach(task => {
+      if (task.status !== 'completed') return;
+      
+      const taskDate = new Date(task.completed_at).toDateString();
+      
+      if (lastDate === null) {
+        currentStreak = 1;
+      } else {
+        const prevDate = new Date(lastDate);
+        const currDate = new Date(taskDate);
+        const diffDays = (currDate - prevDate) / (1000 * 60 * 60 * 24);
+        
+        if (diffDays === 1) {
+          currentStreak++;
+        } else {
+          maxStreak = Math.max(maxStreak, currentStreak);
+          currentStreak = 1;
+        }
+      }
+      
+      lastDate = taskDate;
+    });
+  
+  maxStreak = Math.max(maxStreak, currentStreak);
+  
+  // 7日連続 = 80点, 30日連続 = 100点
+  const score = Math.min(100, 50 + (maxStreak / 30) * 50);
+  return Math.round(score);
+}
+
+// 実行力評価
+async function execute() {
+  console.log('[Executor] 実行力の評価を開始...');
+  
+  // タスク記録を読み込み
+  const tasks = loadTasks();
+  
+  if (tasks.length === 0) {
+    console.log('[Executor] タスク記録が見つかりません。スキップします。');
+    return;
+  }
+  
+  // 最新のタスクを評価
+  const latestTask = tasks[tasks.length - 1];
+  
+  const completionRate = calculateCompletionRate(tasks);
+  const timeLagScore = evaluateTimeLag(tasks);
+  const continuityScore = evaluateContinuity(tasks);
+  
+  // 実行記録を GAS API に送信
+  const executionData = {
+    user_id: CONFIG.USER_ID,
+    task_id: latestTask.id || `task-${Date.now()}`,
+    task_content: latestTask.content,
+    declared_at: latestTask.declared_at || getTimestamp(),
+    completed_at: latestTask.completed_at || '',
+    completion_rate: completionRate,
+    difficulty: latestTask.difficulty || 50
+  };
+  
+  const execResult = await callAPI('execute', 'POST', executionData);
+  
+  if (execResult && execResult.success) {
+    console.log(`[Executor] 実行記録完了 (ID: ${execResult.id})`);
+  }
+  
+  // 実行力スコアを計算して送信
+  // スコア = 完遂率 × 0.4 + 即行動 × 0.3 + 継続力 × 0.3
+  const executionScore = Math.round(
+    completionRate * 0.4 +
+    timeLagScore * 0.3 +
+    continuityScore * 0.3
+  );
+  
+  const evaluationData = {
+    user_id: CONFIG.USER_ID,
+    dimension: 'execution',
+    score: executionScore,
+    agent_id: 'executor',
+    evaluation_data: {
+      completion_rate: completionRate,
+      time_lag_score: timeLagScore,
+      continuity_score: continuityScore,
+      task_count: tasks.length,
+      timestamp: getTimestamp()
+    },
+    notes: `完遂率: ${completionRate}%, 即行動: ${timeLagScore}点, 継続力: ${continuityScore}点`
+  };
+  
+  const evalResult = await callAPI('evaluate', 'POST', evaluationData);
+  
+  if (evalResult && evalResult.success) {
+    console.log(`[Executor] 実行力スコア記録完了: ${executionScore}点`);
+  }
+  
+  console.log('[Executor] 評価完了');
+}
+
+// タスクを宣言する関数（外部から呼び出し可能）
+function declareTask(content, difficulty = 50, isHabit = false) {
+  const tasks = loadTasks();
+  
+  const newTask = {
+    id: `task-${Date.now()}`,
+    content,
+    difficulty,
+    is_habit: isHabit,
+    declared_at: getTimestamp(),
+    started_at: null,
+    completed_at: null,
+    status: 'declared'
+  };
+  
+  tasks.push(newTask);
+  saveTasks(tasks);
+  
+  console.log(`[Executor] タスクを宣言しました: ${content}`);
+  return newTask.id;
+}
+
+// タスクを開始する関数
+function startTask(taskId) {
+  const tasks = loadTasks();
+  const task = tasks.find(t => t.id === taskId);
+  
+  if (!task) {
+    console.error(`[Executor] タスクが見つかりません: ${taskId}`);
+    return false;
+  }
+  
+  task.started_at = getTimestamp();
+  task.status = 'in_progress';
+  saveTasks(tasks);
+  
+  console.log(`[Executor] タスクを開始しました: ${task.content}`);
+  return true;
+}
+
+// タスクを完了する関数
+function completeTask(taskId) {
+  const tasks = loadTasks();
+  const task = tasks.find(t => t.id === taskId);
+  
+  if (!task) {
+    console.error(`[Executor] タスクが見つかりません: ${taskId}`);
+    return false;
+  }
+  
+  task.completed_at = getTimestamp();
+  task.status = 'completed';
+  saveTasks(tasks);
+  
+  console.log(`[Executor] タスクを完了しました: ${task.content}`);
+  return true;
+}
+
+// メイン実行
+if (require.main === module) {
+  execute().catch(error => {
+    console.error('[Executor] エラー:', error.message);
+    process.exit(1);
+  });
+}
+
+module.exports = { execute, declareTask, startTask, completeTask };

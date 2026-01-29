@@ -1,0 +1,2 @@
+id,user_id,month,perception_growth,judgment_growth,execution_growth,growth_coefficient,notes
+1,uuid-001,2026-01,0,0,0,1.0,初月ベースライン

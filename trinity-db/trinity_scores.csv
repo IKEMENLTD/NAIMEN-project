@@ -1,0 +1,4 @@
+id,user_id,timestamp,dimension,score,agent_id,evaluation_data,notes
+1,uuid-001,2026-01-28T22:00:00,perception,0,observer,{},初期値
+2,uuid-001,2026-01-28T22:00:00,judgment,0,judge,{},初期値
+3,uuid-001,2026-01-28T22:00:00,execution,0,executor,{},初期値

@@ -1,0 +1,4 @@
+agent_id,agent_name,role,status,last_active,evaluation_count,created_at
+observer,The Observer,perception_evaluator,active,2026-01-28T22:00:00,0,2026-01-28T22:00:00
+judge,The Judge,judgment_evaluator,active,2026-01-28T22:00:00,0,2026-01-28T22:00:00
+executor,The Executor,execution_evaluator,active,2026-01-28T22:00:00,0,2026-01-28T22:00:00

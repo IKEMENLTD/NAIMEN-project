@@ -1,0 +1,38 @@
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+/var/log/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Local data files
+decisions.json
+tasks.json
+growth-report-*.json
+
+# Memory files (optional - comment out if you want to commit these)
+# memory/
+
+# Temporary files
+*.tmp
+temp/

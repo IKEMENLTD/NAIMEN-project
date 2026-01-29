@@ -1,0 +1,24 @@
+{
+  "name": "trinity-agents",
+  "version": "1.0.0",
+  "description": "Trinity System - 3体のエージェント（Observer, Judge, Executor）",
+  "main": "index.js",
+  "scripts": {
+    "observer": "node observer.js",
+    "judge": "node judge.js",
+    "executor": "node executor.js",
+    "all": "node observer.js && node judge.js && node executor.js",
+    "test": "node test.js"
+  },
+  "keywords": [
+    "trinity",
+    "ikemen",
+    "scoring",
+    "agents"
+  ],
+  "author": "CTO",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

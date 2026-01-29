@@ -1,0 +1,24 @@
+{
+  "name": "trinity-agents-v2",
+  "version": "2.0.0",
+  "description": "Trinity System v2 - 3体のエージェント（最適化版）",
+  "main": "index.js",
+  "scripts": {
+    "observer": "node observer.js",
+    "judge": "node judge.js",
+    "executor": "node executor.js",
+    "all": "node observer.js && node judge.js && node executor.js"
+  },
+  "keywords": [
+    "trinity",
+    "ikemen",
+    "scoring",
+    "agents",
+    "v2"
+  ],
+  "author": "CTO",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity System v2 - README</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        h1 { color: #667eea; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
+        h2 { color: #764ba2; margin-top: 30px; }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+        }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← トップページに戻る</a>
+        
+        <h1>🔱 Trinity System v2 - README</h1>
+        
+        <p>
+            <strong>ミッション: イケメンの構造化</strong><br>
+            外面、内面、経済面が上位20%（80点以上）で初めて真のイケメンと定義。
+        </p>
+        
+        <h2>💎 内面の本質 - Trinity（三位一体）</h2>
+        <p>内面は3つの力で構成される：</p>
+        <ul>
+            <li><strong>認識力（Perception）</strong> - 何が見えているか</li>
+            <li><strong>判断力（Judgment）</strong> - 何が重要か</li>
+            <li><strong>実行力（Execution）</strong> - 何をするか</li>
+        </ul>
+        
+        <h3>スコア計算式</h3>
+        <pre>total_score = min(perception, judgment, execution) × growth_coefficient</pre>
+        
+        <h2>🗄️ アーキテクチャ（2シート構成）</h2>
+        
+        <h3>シート1: users</h3>
+        <p>ユーザーの<strong>現在の状態</strong>を保持</p>
+        
+        <h3>シート2: events</h3>
+        <p><strong>全イベント履歴</strong>（イベントソーシング）</p>
+        
+        <p><strong>イベントタイプ:</strong></p>
+        <ul>
+            <li><code>obs</code> - observation（観察）</li>
+            <li><code>jdg</code> - judgment（判断）</li>
+            <li><code>exec</code> - execution（実行）</li>
+            <li><code>score</code> - score_update（スコア更新）</li>
+            <li><code>growth</code> - growth_calc（成長係数）</li>
+        </ul>
+        
+        <h2>🤖 3体のエージェント</h2>
+        
+        <h3>The Observer（観察者）</h3>
+        <ul>
+            <li><strong>役割:</strong> 認識力を評価</li>
+            <li><strong>頻度:</strong> 毎日朝6時</li>
+            <li><strong>評価:</strong> 日記分析、認知バイアス検出</li>
+        </ul>
+        
+        <h3>The Judge（審判者）</h3>
+        <ul>
+            <li><strong>役割:</strong> 判断力を評価</li>
+            <li><strong>頻度:</strong> 毎週日曜21時</li>
+            <li><strong>評価:</strong> 論理性、優先順位の一貫性</li>
+        </ul>
+        
+        <h3>The Executor（執行者）</h3>
+        <ul>
+            <li><strong>役割:</strong> 実行力を評価</li>
+            <li><strong>頻度:</strong> 毎日夜22時</li>
+            <li><strong>評価:</strong> 完遂率、即行動性、継続力</li>
+        </ul>
+        
+        <h2>🚀 クイックスタート</h2>
+        
+        <h3>1. スプレッドシート作成</h3>
+        <pre>users.csv と events.csv をインポート</pre>
+        
+        <h3>2. GAS APIデプロイ</h3>
+        <pre>Code.gs を Apps Script にコピー
+SPREADSHEET_ID を設定
+Web Appとしてデプロイ</pre>
+        
+        <h3>3. エージェント実行</h3>
+        <pre>cd agents-v2
+cp .env.example .env
+# .env を編集（TRINITY_API_URL を設定）
+
+npm run observer
+npm run judge
+npm run executor</pre>
+        
+        <p>詳細: <a href="DEPLOYMENT-v2.html">DEPLOYMENT-v2.md</a> を参照</p>
+        
+        <h2>✅ v2の利点</h2>
+        <ol>
+            <li><strong>シンプル:</strong> 7シート → 2シート</li>
+            <li><strong>統一API:</strong> 3エンドポイントのみ</li>
+            <li><strong>拡張性:</strong> 新しいイベントタイプを追加するだけ</li>
+            <li><strong>デバッグ容易:</strong> 全履歴が events シートに</li>
+            <li><strong>高速:</strong> users シートは1行、events は append-only</li>
+            <li><strong>スケーラブル:</strong> 外面・経済面も同じ構造で追加可能</li>
+        </ol>
+        
+        <hr>
+        <p style="text-align: center; color: #666;">
+            <strong>Trinity System v2 - 内面を数値化し、成長を可視化する。</strong>
+        </p>
+    </div>
+</body>
+</html>
