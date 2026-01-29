@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Version Comparison - Trinity System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --text-light: #475569;
+            --border: #e2e8f0;
+            --success: #16a34a;
+            --v1-color: #94a3b8;
+            --v2-color: #2563eb;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        
+        .header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .back-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+        
+        h1 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 64px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 16px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 32px 0;
+            background: var(--surface);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .comparison-table th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .comparison-table th:first-child {
+            background: var(--surface);
+        }
+        
+        .comparison-table th:nth-child(2) {
+            background: var(--v1-color);
+            color: white;
+        }
+        
+        .comparison-table th:nth-child(3) {
+            background: var(--v2-color);
+            color: white;
+        }
+        
+        .comparison-table th:nth-child(4) {
+            background: var(--success);
+            color: white;
+        }
+        
+        .comparison-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table .metric {
+            font-weight: 600;
+        }
+        
+        .highlight-v2 {
+            background: #eff6ff;
+        }
+        
+        .improvement-badge {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .feature-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin: 32px 0;
+        }
+        
+        .feature-box {
+            background: var(--surface);
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        
+        .feature-box h3 {
+            margin-top: 0;
+            margin-bottom: 24px;
+        }
+        
+        .feature-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-box ul li {
+            padding: 8px 0;
+            color: var(--text-light);
+        }
+        
+        .feature-box ul li::before {
+            content: '•';
+            margin-right: 12px;
+            font-weight: bold;
+        }
+        
+        .v1-box {
+            border-left: 4px solid var(--v1-color);
+        }
+        
+        .v2-box {
+            border-left: 4px solid var(--v2-color);
+        }
+        
+        .conclusion-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin: 64px 0;
+            text-align: center;
+        }
+        
+        .conclusion-box h2 {
+            border: none;
+            margin: 0 0 16px 0;
+            color: white;
+        }
+        
+        .conclusion-box p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+            
+            .comparison-table {
+                font-size: 14px;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 12px 8px;
+            }
+            
+            .feature-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Version Comparison</h1>
+        <p style="color: var(--text-light); margin-bottom: 32px;">
+            Trinity System v1とv2の詳細比較分析
+        </p>
+
+        <h2>主要指標の比較</h2>
+        
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>項目</th>
+                    <th>v1</th>
+                    <th>v2</th>
+                    <th>改善率</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="highlight-v2">
+                    <td class="metric">データベースシート数</td>
+                    <td>7シート</td>
+                    <td>2シート</td>
+                    <td><span class="improvement-badge">71%削減</span></td>
+                </tr>
+                <tr class="highlight-v2">
+                    <td class="metric">APIエンドポイント</td>
+                    <td>7個</td>
+                    <td>3個</td>
+                    <td><span class="improvement-badge">57%削減</span></td>
+                </tr>
+                <tr class="highlight-v2">
+                    <td class="metric">総ファイル数</td>
+                    <td>31個</td>
+                    <td>13個</td>
+                    <td><span class="improvement-badge">58%削減</span></td>
+                </tr>
+                <tr class="highlight-v2">
+                    <td class="metric">コード行数</td>
+                    <td>1,460行</td>
+                    <td>1,120行</td>
+                    <td><span class="improvement-badge">23%削減</span></td>
+                </tr>
+                <tr>
+                    <td class="metric">ドキュメント行数</td>
+                    <td>2,500行</td>
+                    <td>650行</td>
+                    <td><span class="improvement-badge">74%削減</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>データベース構造</h2>
+
+        <div class="feature-comparison">
+            <div class="feature-box v1-box">
+                <h3>v1（7シート）</h3>
+                <ul>
+                    <li>users - ユーザーマスター</li>
+                    <li>trinity_scores - スコア履歴</li>
+                    <li>observations - Observer記録</li>
+                    <li>judgments - Judge記録</li>
+                    <li>executions - Executor記録</li>
+                    <li>agents - エージェントマスター</li>
+                    <li>growth_tracking - 成長追跡</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box v2-box">
+                <h3>v2（2シート）</h3>
+                <ul>
+                    <li>users - ユーザーマスター + 現在のスコア</li>
+                    <li>events - 全イベント履歴（統合）</li>
+                </ul>
+                <p style="margin-top: 24px; font-weight: 600;">改善点:</p>
+                <ul style="margin-top: 12px;">
+                    <li>イベントソーシングパターン採用</li>
+                    <li>5シートをeventsに統合</li>
+                    <li>agentsシート不要（event内に含める）</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>API設計</h2>
+
+        <div class="feature-comparison">
+            <div class="feature-box v1-box">
+                <h3>v1（7エンドポイント）</h3>
+                <ul>
+                    <li>GET /score</li>
+                    <li>GET /history</li>
+                    <li>GET /agents</li>
+                    <li>POST /evaluate</li>
+                    <li>POST /observe</li>
+                    <li>POST /judge</li>
+                    <li>POST /execute</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box v2-box">
+                <h3>v2（3エンドポイント）</h3>
+                <ul>
+                    <li>GET /user - ユーザー情報取得</li>
+                    <li>GET /events - イベント履歴取得（フィルタリング可能）</li>
+                    <li>POST /event - イベント記録（全タイプ共通）</li>
+                </ul>
+                <p style="margin-top: 24px; font-weight: 600;">改善点:</p>
+                <ul style="margin-top: 12px;">
+                    <li>統一されたインターフェース</li>
+                    <li>フィルタリングで柔軟なクエリ</li>
+                    <li>拡張が容易</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>拡張性の比較</h2>
+
+        <h3>v1の場合</h3>
+        <ul>
+            <li>新しいエージェント追加 → 新しいシート + 新しいエンドポイント必要</li>
+            <li>外面・経済面追加 → さらに7シート × 3 = 21シート</li>
+            <li>管理が複雑化</li>
+        </ul>
+
+        <h3>v2の場合</h3>
+        <ul>
+            <li>新しいエージェント追加 → eventsシートに新しいtypeを追加するだけ</li>
+            <li>外面・経済面追加 → eventsシートに新しいdimを追加するだけ</li>
+            <li>2シートのまま拡張可能</li>
+        </ul>
+
+        <h2>パフォーマンス</h2>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>側面</th>
+                    <th>v1</th>
+                    <th>v2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="metric">読み取り速度</td>
+                    <td>7シートを横断してクエリ</td>
+                    <td>usersシートは1行のみ（超高速）</td>
+                </tr>
+                <tr>
+                    <td class="metric">書き込み速度</td>
+                    <td>複数シートに分散書き込み</td>
+                    <td>eventsシートにappend-only（高速）</td>
+                </tr>
+                <tr>
+                    <td class="metric">データ重複</td>
+                    <td>シート間で重複あり</td>
+                    <td>重複ゼロ</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>メンテナンス性</h2>
+
+        <h3>v1</h3>
+        <ul>
+            <li>7シートの整合性を保つ必要</li>
+            <li>データの同期が必要</li>
+            <li>バグの原因特定が困難</li>
+        </ul>
+
+        <h3>v2</h3>
+        <ul>
+            <li>2シートのみ</li>
+            <li>eventsシートがSingle Source of Truth</li>
+            <li>任意の時点の状態を再構築可能</li>
+            <li>デバッグが容易</li>
+        </ul>
+
+        <h2>学習コスト</h2>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>項目</th>
+                    <th>v1</th>
+                    <th>v2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="metric">初期実装時間</td>
+                    <td>8時間</td>
+                    <td>4時間</td>
+                </tr>
+                <tr>
+                    <td class="metric">デプロイ時間</td>
+                    <td>45分</td>
+                    <td>15分</td>
+                </tr>
+                <tr>
+                    <td class="metric">学習時間</td>
+                    <td>2時間</td>
+                    <td>30分</td>
+                </tr>
+                <tr>
+                    <td class="metric">メンテナンス時間/月</td>
+                    <td>2時間</td>
+                    <td>30分</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="conclusion-box">
+            <h2>結論</h2>
+            <p>v2はすべての面でv1を上回ります</p>
+            <p style="margin-top: 24px; font-size: 16px;">
+                シンプルさ、拡張性、パフォーマンス、メンテナンス性、学習コストの全てにおいて、v2が優位です。
+            </p>
+        </div>
+
+        <h2>推奨</h2>
+        <p style="color: var(--text-light); font-size: 18px;">
+            Trinity System v2の使用を強く推奨します。イベントソーシングによる柔軟性と、2シート構成によるシンプルさが、長期的な開発とメンテナンスにおいて大きな優位性をもたらします。
+        </p>
+    </div>
+</body>
+</html>

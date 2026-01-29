@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"="width=device-width, initial-scale=1.0">
+    <title>Deployment Guide - Trinity System v2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --text-light: #475569;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --success: #16a34a;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        
+        .header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .back-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+        
+        h1 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 64px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 16px;
+        }
+        
+        p {
+            margin-bottom: 16px;
+            color: var(--text-light);
+        }
+        
+        ul, ol {
+            margin: 16px 0 16px 32px;
+            color: var(--text-light);
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--code-bg);
+            color: #e2e8f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        pre {
+            background: var(--code-bg);
+            color: #e2e8f0;
+            padding: 24px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 24px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+        }
+        
+        .step {
+            background: var(--surface);
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin: 32px 0;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+        
+        .checklist {
+            list-style: none;
+            margin: 24px 0;
+            padding: 0;
+        }
+        
+        .checklist li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+        
+        .checklist li::before {
+            content: '□';
+            margin-right: 12px;
+            color: var(--text-light);
+        }
+        
+        .note {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 16px 20px;
+            margin: 24px 0;
+        }
+        
+        .success-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Deployment Guide</h1>
+        <p>Trinity System v2を本番環境にデプロイするための完全ガイドです。</p>
+
+        <div class="note">
+            <p><strong>推定所要時間:</strong> 15-20分（v1比で大幅短縮）</p>
+        </div>
+
+        <h2>前提条件</h2>
+        <ul>
+            <li>Googleアカウント</li>
+            <li>Node.js 18以上</li>
+            <li>基本的なターミナル操作スキル</li>
+        </ul>
+
+        <h2>Phase 1: データベース構築</h2>
+        
+        <div class="step">
+            <h3><span class="step-number">1</span>Googleスプレッドシート作成</h3>
+            <ol>
+                <li>Google Sheetsで新規スプレッドシート作成</li>
+                <li>名前を <code>trinity-system-v2</code> に変更</li>
+                <li>URLからスプレッドシートIDをコピー</li>
+            </ol>
+            <pre>https://docs.google.com/spreadsheets/d/[ここがID]/edit</pre>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">2</span>CSVインポート</h3>
+            <p><code>trinity-db-v2/</code> ディレクトリの2つのCSVファイルをインポート：</p>
+            <ul>
+                <li><code>users.csv</code> → usersシート</li>
+                <li><code>events.csv</code> → eventsシート</li>
+            </ul>
+            <p><strong>インポート手順:</strong></p>
+            <ol>
+                <li>ファイル → インポート → アップロード</li>
+                <li>区切り文字: カンマ</li>
+                <li>既存データ: 置き換え</li>
+            </ol>
+        </div>
+
+        <h3>確認</h3>
+        <ul class="checklist">
+            <li>2つのシートが作成されている</li>
+            <li>usersシートに1行のデータがある</li>
+            <li>eventsシートにヘッダー行がある</li>
+        </ul>
+
+        <h2>Phase 2: GAS APIデプロイ</h2>
+
+        <div class="step">
+            <h3><span class="step-number">1</span>Apps Scriptプロジェクト作成</h3>
+            <ol>
+                <li>スプレッドシートを開く</li>
+                <li>「拡張機能」→「Apps Script」</li>
+                <li>新しいプロジェクトが開く</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">2</span>コードのコピー</h3>
+            <ol>
+                <li><code>gas-api-v2/Code.gs</code> の内容をコピー</li>
+                <li>Apps Scriptエディタに貼り付け</li>
+                <li>2行目の <code>SPREADSHEET_ID</code> を実際のIDに置き換え</li>
+            </ol>
+            <pre>const SPREADSHEET_ID = 'あなたのスプレッドシートID';</pre>
+            <ol start="4">
+                <li>保存（Ctrl+S / Cmd+S）</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">3</span>Web Appとしてデプロイ</h3>
+            <ol>
+                <li>右上の「デプロイ」→「新しいデプロイ」</li>
+                <li>種類: <strong>ウェブアプリ</strong></li>
+                <li>説明: <code>Trinity System v2 API</code></li>
+                <li>次のユーザーとして実行: <strong>自分</strong></li>
+                <li>アクセスできるユーザー: <strong>全員</strong></li>
+                <li>「デプロイ」をクリック</li>
+                <li><strong>ウェブアプリのURL</strong> をコピー（必ず保存）</li>
+            </ol>
+        </div>
+
+        <div class="success-box">
+            <p><strong>動作確認:</strong></p>
+            <p>ブラウザで以下にアクセス：</p>
+            <pre>https://script.google.com/macros/s/YOUR_ID/exec?path=user&user_id=uuid-001</pre>
+            <p>ユーザー情報がJSON形式で返ってくればOKです。</p>
+        </div>
+
+        <h2>Phase 3: エージェント設定</h2>
+
+        <div class="step">
+            <h3><span class="step-number">1</span>環境変数設定</h3>
+            <p><code>agents-v2/</code> ディレクトリで <code>.env</code> ファイルを作成：</p>
+            <pre>cd agents-v2
+cp .env.example .env</pre>
+            <p><code>.env</code> ファイルの内容：</p>
+            <pre>TRINITY_API_URL=https://script.google.com/macros/s/YOUR_ID/exec
+USER_ID=uuid-001
+WORKSPACE=/root/clawd</pre>
+        </div>
+
+        <h2>Phase 4: 動作確認</h2>
+
+        <div class="step">
+            <h3>エージェント手動実行</h3>
+            <pre>cd agents-v2
+
+# Observer実行
+node observer.js
+
+# Judge実行
+node judge.js
+
+# Executor実行
+node executor.js</pre>
+        </div>
+
+        <h3>スプレッドシート確認</h3>
+        <ul class="checklist">
+            <li>eventsシートにイベントが記録されている</li>
+            <li>usersシートのスコアが更新されている</li>
+        </ul>
+
+        <h2>Phase 5: Cron設定</h2>
+
+        <p>定期実行のためにCronジョブを設定：</p>
+        <pre>crontab -e</pre>
+
+        <p>以下を追加：</p>
+        <pre>0 6 * * * cd /root/clawd/agents-v2 && node observer.js
+0 21 * * 0 cd /root/clawd/agents-v2 && node judge.js
+0 22 * * * cd /root/clawd/agents-v2 && node executor.js
+
+# Growth Calculator（月次）
+0 0 1 * * cd /root/clawd/batch-v2 && node growth-calculator.js</pre>
+
+        <h2>デプロイ完了チェックリスト</h2>
+
+        <ul class="checklist">
+            <li>Googleスプレッドシート作成完了</li>
+            <li>2つのCSVをインポート完了</li>
+            <li>GAS API デプロイ完了</li>
+            <li>API動作確認完了（ブラウザでアクセス）</li>
+            <li>.env ファイル作成・設定完了</li>
+            <li>エージェント手動実行成功</li>
+            <li>スプレッドシートにデータ記録確認</li>
+            <li>Cronジョブ設定完了</li>
+        </ul>
+
+        <div class="success-box">
+            <p><strong>デプロイ完了</strong></p>
+            <p>すべてのチェックリストが完了したら、Trinity System v2が正常に動作しています。</p>
+        </div>
+    </div>
+</body>
+</html>

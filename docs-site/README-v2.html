@@ -3,118 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trinity System v2 - README</title>
+    <title>README - Trinity System v2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #64748b;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --text-light: #475569;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .header-content {
             max-width: 900px;
             margin: 0 auto;
-            padding: 40px 20px;
-            background: #f5f5f5;
-            line-height: 1.6;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
+        
+        .back-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .back-link:hover {
+            color: var(--primary);
+        }
+        
         .container {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
         }
-        h1 { color: #667eea; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
-        h2 { color: #764ba2; margin-top: 30px; }
+        
+        h1 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+        
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 64px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 16px;
+        }
+        
+        p {
+            margin-bottom: 16px;
+            color: var(--text-light);
+        }
+        
+        strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+        
+        ul, ol {
+            margin: 16px 0 16px 32px;
+            color: var(--text-light);
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
         code {
-            background: #f4f4f4;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 14px;
         }
+        
         pre {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 20px;
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 24px;
             border-radius: 8px;
             overflow-x: auto;
+            margin: 24px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.5;
         }
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #667eea;
+        
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .intro {
+            background: var(--surface);
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin: 32px 0;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+        
+        .feature-item {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .feature-item h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .feature-item p {
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        a {
+            color: var(--primary);
             text-decoration: none;
+            font-weight: 500;
         }
-        .back-link:hover { text-decoration: underline; }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .note {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 16px 20px;
+            margin: 24px 0;
+            border-radius: 4px;
+        }
+        
+        .note p {
+            margin: 0;
+            color: var(--text);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="header">
+        <div class="header-content">
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </div>
+
     <div class="container">
-        <a href="index.html" class="back-link">← トップページに戻る</a>
+        <h1>Trinity System v2</h1>
         
-        <h1>🔱 Trinity System v2 - README</h1>
+        <div class="intro">
+            <p><strong>Mission: イケメンの構造化</strong></p>
+            <p>外面、内面、経済面が上位20%（80点以上）で初めて真のイケメンと定義。本プロジェクトは第一フェーズ、内面のスコアリングシステムを実装します。</p>
+        </div>
+
+        <h2>Trinity - 三位一体</h2>
+        <p>内面は3つの力で構成されます：</p>
         
-        <p>
-            <strong>ミッション: イケメンの構造化</strong><br>
-            外面、内面、経済面が上位20%（80点以上）で初めて真のイケメンと定義。
-        </p>
-        
-        <h2>💎 内面の本質 - Trinity（三位一体）</h2>
-        <p>内面は3つの力で構成される：</p>
-        <ul>
-            <li><strong>認識力（Perception）</strong> - 何が見えているか</li>
-            <li><strong>判断力（Judgment）</strong> - 何が重要か</li>
-            <li><strong>実行力（Execution）</strong> - 何をするか</li>
-        </ul>
-        
+        <div class="feature-list">
+            <div class="feature-item">
+                <h4>認識力 (Perception)</h4>
+                <p>何が見えているか - 現実をありのまま見る力</p>
+            </div>
+            <div class="feature-item">
+                <h4>判断力 (Judgment)</h4>
+                <p>何が重要か - 本質を掴み、優先順位をつける力</p>
+            </div>
+            <div class="feature-item">
+                <h4>実行力 (Execution)</h4>
+                <p>何をするか - 選択を現実にする力</p>
+            </div>
+        </div>
+
         <h3>スコア計算式</h3>
         <pre>total_score = min(perception, judgment, execution) × growth_coefficient</pre>
+        <p>Trinity の哲学: 3つの力のうち、最も低い力がボトルネックになります。</p>
+
+        <h2>アーキテクチャ</h2>
         
-        <h2>🗄️ アーキテクチャ（2シート構成）</h2>
+        <h3>2シート構成</h3>
+        <p>従来の7シートから2シートへ最適化しました。</p>
         
-        <h3>シート1: users</h3>
-        <p>ユーザーの<strong>現在の状態</strong>を保持</p>
-        
-        <h3>シート2: events</h3>
-        <p><strong>全イベント履歴</strong>（イベントソーシング）</p>
-        
-        <p><strong>イベントタイプ:</strong></p>
         <ul>
-            <li><code>obs</code> - observation（観察）</li>
-            <li><code>jdg</code> - judgment（判断）</li>
-            <li><code>exec</code> - execution（実行）</li>
-            <li><code>score</code> - score_update（スコア更新）</li>
-            <li><code>growth</code> - growth_calc（成長係数）</li>
+            <li><strong>users</strong> - ユーザーの現在の状態を保持</li>
+            <li><strong>events</strong> - 全イベント履歴（イベントソーシング）</li>
         </ul>
-        
-        <h2>🤖 3体のエージェント</h2>
-        
+
+        <h3>イベントタイプ</h3>
+        <ul>
+            <li><code>obs</code> - observation（観察記録）</li>
+            <li><code>jdg</code> - judgment（判断記録）</li>
+            <li><code>exec</code> - execution（実行記録）</li>
+            <li><code>score</code> - score_update（スコア更新）</li>
+            <li><code>growth</code> - growth_calc（成長係数計算）</li>
+        </ul>
+
+        <h2>3体のエージェント</h2>
+
         <h3>The Observer（観察者）</h3>
         <ul>
             <li><strong>役割:</strong> 認識力を評価</li>
             <li><strong>頻度:</strong> 毎日朝6時</li>
-            <li><strong>評価:</strong> 日記分析、認知バイアス検出</li>
+            <li><strong>評価対象:</strong> 日記分析、認知バイアス検出</li>
         </ul>
-        
+
         <h3>The Judge（審判者）</h3>
         <ul>
             <li><strong>役割:</strong> 判断力を評価</li>
             <li><strong>頻度:</strong> 毎週日曜21時</li>
-            <li><strong>評価:</strong> 論理性、優先順位の一貫性</li>
+            <li><strong>評価対象:</strong> 論理性、優先順位の一貫性</li>
         </ul>
-        
+
         <h3>The Executor（執行者）</h3>
         <ul>
             <li><strong>役割:</strong> 実行力を評価</li>
             <li><strong>頻度:</strong> 毎日夜22時</li>
-            <li><strong>評価:</strong> 完遂率、即行動性、継続力</li>
+            <li><strong>評価対象:</strong> 完遂率、即行動性、継続力</li>
         </ul>
-        
-        <h2>🚀 クイックスタート</h2>
-        
+
+        <h2>クイックスタート</h2>
+
         <h3>1. スプレッドシート作成</h3>
-        <pre>users.csv と events.csv をインポート</pre>
-        
+        <pre>users.csv と events.csv をGoogleスプレッドシートにインポート</pre>
+
         <h3>2. GAS APIデプロイ</h3>
         <pre>Code.gs を Apps Script にコピー
 SPREADSHEET_ID を設定
 Web Appとしてデプロイ</pre>
-        
+
         <h3>3. エージェント実行</h3>
         <pre>cd agents-v2
 cp .env.example .env
@@ -123,23 +309,37 @@ cp .env.example .env
 npm run observer
 npm run judge
 npm run executor</pre>
+
+        <div class="note">
+            <p>詳細なデプロイ手順は <a href="DEPLOYMENT-v2.html">DEPLOYMENT-v2.md</a> を参照してください。</p>
+        </div>
+
+        <h2>v2の改善点</h2>
         
-        <p>詳細: <a href="DEPLOYMENT-v2.html">DEPLOYMENT-v2.md</a> を参照</p>
-        
-        <h2>✅ v2の利点</h2>
         <ol>
-            <li><strong>シンプル:</strong> 7シート → 2シート</li>
-            <li><strong>統一API:</strong> 3エンドポイントのみ</li>
-            <li><strong>拡張性:</strong> 新しいイベントタイプを追加するだけ</li>
-            <li><strong>デバッグ容易:</strong> 全履歴が events シートに</li>
-            <li><strong>高速:</strong> users シートは1行、events は append-only</li>
+            <li><strong>シンプル:</strong> 7シート → 2シート（71%削減）</li>
+            <li><strong>統一API:</strong> 7エンドポイント → 3エンドポイント（57%削減）</li>
+            <li><strong>拡張性:</strong> 新しいイベントタイプを追加するだけで機能拡張可能</li>
+            <li><strong>デバッグ容易:</strong> 全履歴がeventsシートに集約</li>
+            <li><strong>高速:</strong> usersシートは1行のみ、eventsはappend-only</li>
             <li><strong>スケーラブル:</strong> 外面・経済面も同じ構造で追加可能</li>
         </ol>
-        
-        <hr>
-        <p style="text-align: center; color: #666;">
-            <strong>Trinity System v2 - 内面を数値化し、成長を可視化する。</strong>
-        </p>
+
+        <h2>目標スコア</h2>
+        <p>イケメン基準として、各次元で80点以上を目指します：</p>
+        <ul>
+            <li>認識力 ≥ 80点</li>
+            <li>判断力 ≥ 80点</li>
+            <li>実行力 ≥ 80点</li>
+        </ul>
+        <pre>総合スコア = min(80, 80, 80) × 1.0 = 80点</pre>
+
+        <h2>技術スタック</h2>
+        <ul>
+            <li><strong>バックエンド:</strong> Google Apps Script, Google Sheets</li>
+            <li><strong>データモデル:</strong> イベントソーシング, CQRS</li>
+            <li><strong>エージェント:</strong> Node.js 18+, JavaScript ES6+</li>
+        </ul>
     </div>
 </body>
 </html>
