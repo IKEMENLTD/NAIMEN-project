@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - Trinity System v2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #64748b;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --text-light: #475569;
+            --border: #e2e8f0;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 24px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 32px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero .subtitle {
+            font-size: 20px;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .version {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 32px;
+        }
+        
+        .doc-list {
+            display: grid;
+            gap: 16px;
+            max-width: 800px;
+            margin: 80px auto;
+        }
+        
+        .doc-link {
+            display: flex;
+            align-items: center;
+            padding: 24px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.2s;
+        }
+        
+        .doc-link:hover {
+            border-color: var(--primary);
+            transform: translateX(4px);
+        }
+        
+        .doc-link .doc-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .doc-link .doc-desc {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            margin-top: 120px;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">Trinity System</a>
+                <nav>
+                    <a href="https://github.com/IKEMENLTD/NAIMEN-project">GitHub</a>
+                    <a href="index.html">App</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="version">Version 2.0</div>
+                <h1>Documentation</h1>
+                <p class="subtitle">Trinity System v2 - 技術ドキュメント</p>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="doc-list">
+                <a href="README-v2.html" class="doc-link">
+                    <div>
+                        <div class="doc-title">README</div>
+                        <div class="doc-desc">プロジェクト概要とクイックスタート</div>
+                    </div>
+                </a>
+                <a href="DEPLOYMENT-v2.html" class="doc-link">
+                    <div>
+                        <div class="doc-title">Deployment Guide</div>
+                        <div class="doc-desc">デプロイ手順とセットアップガイド</div>
+                    </div>
+                </a>
+                <a href="PROJECT_SUMMARY-v2.html" class="doc-link">
+                    <div>
+                        <div class="doc-title">Project Summary</div>
+                        <div class="doc-desc">完成サマリーと統計情報</div>
+                    </div>
+                </a>
+                <a href="VERSION_COMPARISON.html" class="doc-link">
+                    <div>
+                        <div class="doc-title">Version Comparison</div>
+                        <div class="doc-desc">v1とv2の比較分析</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Trinity System v2 - 完璧に。シンプルに。イケメンへの道を構造化する。</p>
+            <p style="margin-top: 8px;">2026 IKEMEN LTD.</p>
+        </div>
+    </footer>
+</body>
+</html>

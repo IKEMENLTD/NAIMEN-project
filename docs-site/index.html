@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trinity System v2 - イケメンの構造化</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Trinity System - イケメンの構造化</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -16,413 +14,455 @@
         
         :root {
             --primary: #2563eb;
-            --primary-dark: #1e40af;
-            --secondary: #64748b;
+            --success: #16a34a;
+            --warning: #ea580c;
             --background: #f8fafc;
             --surface: #ffffff;
             --text: #0f172a;
             --text-light: #475569;
             --border: #e2e8f0;
-            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--background);
             color: var(--text);
             line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-        
-        /* Header */
         header {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
-            padding: 24px 0;
+            padding: 16px 0;
             position: sticky;
             top: 0;
             z-index: 100;
             backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
         }
         
         .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
         .logo {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
             color: var(--primary);
-            text-decoration: none;
         }
         
         nav a {
             color: var(--text-light);
             text-decoration: none;
-            margin-left: 32px;
+            margin-left: 24px;
+            font-size: 14px;
             font-weight: 500;
-            font-size: 14px;
-            transition: color 0.2s;
         }
         
-        nav a:hover {
-            color: var(--primary);
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
         }
         
-        /* Hero */
-        .hero {
-            padding: 120px 0 80px;
-            text-align: center;
-        }
-        
-        .hero h1 {
-            font-size: 56px;
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            letter-spacing: -0.02em;
-        }
-        
-        .hero .subtitle {
-            font-size: 20px;
-            color: var(--text-light);
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .hero .version {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 32px;
-        }
-        
-        /* Stats Grid */
-        .stats {
+        .dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
-            margin: 80px 0;
+            margin-bottom: 40px;
         }
         
-        .stat-card {
+        .score-card {
             background: var(--surface);
             padding: 32px;
             border-radius: 12px;
             border: 1px solid var(--border);
             text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
         }
         
-        .stat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .stat-number {
-            font-size: 48px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-        
-        .stat-label {
+        .score-label {
             font-size: 14px;
             color: var(--text-light);
+            margin-bottom: 12px;
             font-weight: 500;
         }
         
-        /* Features */
-        .features {
-            margin: 80px 0;
-        }
-        
-        .section-title {
-            font-size: 36px;
+        .score-value {
+            font-size: 48px;
             font-weight: 700;
-            text-align: center;
-            margin-bottom: 64px;
-        }
-        
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 32px;
-        }
-        
-        .feature-card {
-            background: var(--surface);
-            padding: 40px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-        }
-        
-        .feature-card h3 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-        
-        .feature-card p {
-            color: var(--text-light);
-            line-height: 1.7;
-        }
-        
-        /* Architecture */
-        .architecture {
-            background: var(--surface);
-            padding: 80px 0;
-            margin: 80px 0;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-        }
-        
-        .architecture-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-        
-        .architecture h2 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 32px;
-            text-align: center;
-        }
-        
-        .architecture-item {
-            margin-bottom: 32px;
-        }
-        
-        .architecture-item h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 12px;
             color: var(--primary);
         }
         
-        .architecture-item p {
-            color: var(--text-light);
+        .score-value.total {
+            color: var(--success);
         }
         
-        /* Docs */
-        .docs {
-            margin: 80px 0;
-        }
-        
-        .doc-list {
+        .main-content {
             display: grid;
-            gap: 16px;
-            max-width: 800px;
-            margin: 0 auto;
+            grid-template-columns: 2fr 1fr;
+            gap: 32px;
         }
         
-        .doc-link {
-            display: flex;
-            align-items: center;
-            padding: 24px;
+        .section {
             background: var(--surface);
-            border: 1px solid var(--border);
+            padding: 32px;
             border-radius: 12px;
-            text-decoration: none;
-            color: var(--text);
-            transition: all 0.2s;
+            border: 1px solid var(--border);
         }
         
-        .doc-link:hover {
-            border-color: var(--primary);
-            transform: translateX(4px);
-        }
-        
-        .doc-link .doc-title {
+        .section h2 {
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 24px;
         }
         
-        .doc-link .doc-desc {
+        textarea, input {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
             font-size: 14px;
-            color: var(--text-light);
+            resize: vertical;
         }
         
-        /* Footer */
-        footer {
-            background: var(--surface);
-            border-top: 1px solid var(--border);
-            padding: 40px 0;
-            margin-top: 120px;
+        textarea {
+            min-height: 200px;
+        }
+        
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 16px;
+            transition: opacity 0.2s;
+        }
+        
+        button:hover {
+            opacity: 0.9;
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .task-item {
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .task-item.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+        
+        .task-actions button {
+            padding: 6px 12px;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+        
+        .message {
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+        
+        .message.success {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .message.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .loading {
             text-align: center;
+            padding: 20px;
             color: var(--text-light);
-            font-size: 14px;
         }
         
-        footer .copyright {
-            margin-top: 8px;
-        }
-        
-        /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 40px;
-            }
-            
-            .hero .subtitle {
-                font-size: 18px;
-            }
-            
-            .stats {
+            .main-content {
                 grid-template-columns: 1fr;
             }
             
-            .feature-grid {
+            .dashboard {
                 grid-template-columns: 1fr;
-            }
-            
-            nav a {
-                margin-left: 16px;
-                font-size: 13px;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="#" class="logo">Trinity System</a>
-                <nav>
-                    <a href="https://github.com/IKEMENLTD/NAIMEN-project">GitHub</a>
-                    <a href="#docs">Documentation</a>
-                    <a href="#architecture">Architecture</a>
-                </nav>
-            </div>
+        <div class="header-content">
+            <div class="logo">Trinity System</div>
+            <nav>
+                <a href="docs.html">Documentation</a>
+                <a href="https://github.com/IKEMENLTD/NAIMEN-project">GitHub</a>
+            </nav>
         </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <div class="version">Version 2.0</div>
-                <h1>Trinity System</h1>
-                <p class="subtitle">イケメンの構造化 - 内面スコアリングシステム</p>
+    <div class="container">
+        <div id="message-container"></div>
+        
+        <div class="dashboard">
+            <div class="score-card">
+                <div class="score-label">認識力</div>
+                <div class="score-value" id="perception-score">-</div>
             </div>
-        </section>
-
-        <section class="container">
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-number">2</div>
-                    <div class="stat-label">シート構成</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">3</div>
-                    <div class="stat-label">エージェント</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">3</div>
-                    <div class="stat-label">APIエンドポイント</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">71%</div>
-                    <div class="stat-label">データベース削減率</div>
-                </div>
+            <div class="score-card">
+                <div class="score-label">判断力</div>
+                <div class="score-value" id="judgment-score">-</div>
             </div>
-        </section>
-
-        <section class="features">
-            <div class="container">
-                <h2 class="section-title">Trinity - 三位一体</h2>
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <h3>認識力 (Perception)</h3>
-                        <p>現実をありのまま見る力を測定。日記分析、認知バイアス検出により、自己欺瞞のない正確な自己認識を評価します。</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>判断力 (Judgment)</h3>
-                        <p>本質を掴み、優先順位を正しくつける力を測定。論理性、一貫性、根本原因思考により、最適な意思決定能力を評価します。</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>実行力 (Execution)</h3>
-                        <p>選択を現実にする力を測定。完遂率、即行動性、継続力により、確実に成果を出す実行能力を評価します。</p>
-                    </div>
-                </div>
+            <div class="score-card">
+                <div class="score-label">実行力</div>
+                <div class="score-value" id="execution-score">-</div>
             </div>
-        </section>
-
-        <section class="architecture" id="architecture">
-            <div class="architecture-content">
-                <h2>アーキテクチャ</h2>
-                
-                <div class="architecture-item">
-                    <h3>イベントソーシング</h3>
-                    <p>すべての変更をイベントとして記録。現在の状態はイベントから導出され、履歴の改ざんが不可能な設計です。</p>
-                </div>
-                
-                <div class="architecture-item">
-                    <h3>2シート構成</h3>
-                    <p>users（現在の状態）とevents（全イベント履歴）のみ。7シートから2シートへの最適化により、管理が容易で拡張性が高い設計を実現しました。</p>
-                </div>
-                
-                <div class="architecture-item">
-                    <h3>統一API</h3>
-                    <p>3つのエンドポイント（GET /user, GET /events, POST /event）のみ。7エンドポイントから3エンドポイントへの統合により、一貫性のある操作を提供します。</p>
-                </div>
+            <div class="score-card">
+                <div class="score-label">総合スコア</div>
+                <div class="score-value total" id="total-score">-</div>
             </div>
-        </section>
-
-        <section class="docs" id="docs">
-            <div class="container">
-                <h2 class="section-title">Documentation</h2>
-                <div class="doc-list">
-                    <a href="README-v2.html" class="doc-link">
-                        <div>
-                            <div class="doc-title">README</div>
-                            <div class="doc-desc">プロジェクト概要とクイックスタート</div>
-                        </div>
-                    </a>
-                    <a href="DEPLOYMENT-v2.html" class="doc-link">
-                        <div>
-                            <div class="doc-title">Deployment Guide</div>
-                            <div class="doc-desc">デプロイ手順とセットアップガイド</div>
-                        </div>
-                    </a>
-                    <a href="PROJECT_SUMMARY-v2.html" class="doc-link">
-                        <div>
-                            <div class="doc-title">Project Summary</div>
-                            <div class="doc-desc">完成サマリーと統計情報</div>
-                        </div>
-                    </a>
-                    <a href="VERSION_COMPARISON.html" class="doc-link">
-                        <div>
-                            <div class="doc-title">Version Comparison</div>
-                            <div class="doc-desc">v1とv2の比較分析</div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>Trinity System v2 - 完璧に。シンプルに。イケメンへの道を構造化する。</p>
-            <p class="copyright">2026 IKEMEN LTD. CTO - Clawdbot専属CTO兼CIO</p>
         </div>
-    </footer>
+
+        <div class="main-content">
+            <div>
+                <div class="section">
+                    <h2>今日の日記</h2>
+                    <textarea id="diary-input" placeholder="今日の出来事、考えたこと、感じたことを記録してください..."></textarea>
+                    <button onclick="saveDiary()">保存して分析</button>
+                </div>
+                
+                <div class="section" style="margin-top: 32px;">
+                    <h2>判断を記録</h2>
+                    <input type="text" id="decision-input" placeholder="今日の重要な判断..." style="margin-bottom: 16px;">
+                    <textarea id="reasoning-input" placeholder="なぜその判断をしたか..." style="min-height: 100px;"></textarea>
+                    <button onclick="saveDecision()">判断を記録</button>
+                </div>
+            </div>
+
+            <div>
+                <div class="section">
+                    <h2>タスク管理</h2>
+                    <input type="text" id="task-input" placeholder="新しいタスク...">
+                    <button onclick="addTask()">追加</button>
+                    <div id="task-list" style="margin-top: 24px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API設定（環境に応じて変更）
+        const API_URL = 'YOUR_GAS_API_URL_HERE';
+        const USER_ID = 'uuid-001';
+        
+        // 初期化
+        document.addEventListener('DOMContentLoaded', () => {
+            loadScores();
+            loadTasks();
+        });
+        
+        // スコア取得
+        async function loadScores() {
+            if (API_URL === 'YOUR_GAS_API_URL_HERE') {
+                document.getElementById('perception-score').textContent = '0';
+                document.getElementById('judgment-score').textContent = '0';
+                document.getElementById('execution-score').textContent = '0';
+                document.getElementById('total-score').textContent = '0';
+                showMessage('API URLを設定してください（index.htmlの23行目）', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}?path=user&user_id=${USER_ID}`);
+                const data = await response.json();
+                
+                document.getElementById('perception-score').textContent = data.scores.perception;
+                document.getElementById('judgment-score').textContent = data.scores.judgment;
+                document.getElementById('execution-score').textContent = data.scores.execution;
+                document.getElementById('total-score').textContent = data.scores.total;
+            } catch (error) {
+                console.error('Failed to load scores:', error);
+            }
+        }
+        
+        // 日記保存
+        async function saveDiary() {
+            const content = document.getElementById('diary-input').value;
+            if (!content.trim()) {
+                showMessage('日記を入力してください', 'error');
+                return;
+            }
+            
+            const today = new Date().toISOString().split('T')[0];
+            
+            // ローカルストレージに保存
+            localStorage.setItem(`diary-${today}`, content);
+            
+            // 簡易分析
+            const score = analyzeDiary(content);
+            
+            // APIに送信（実装されている場合）
+            if (API_URL !== 'YOUR_GAS_API_URL_HERE') {
+                try {
+                    await fetch(`${API_URL}?path=event`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            user_id: USER_ID,
+                            type: 'obs',
+                            agent: 'observer',
+                            dim: 'perception',
+                            val: score,
+                            data: { content: content }
+                        })
+                    });
+                    
+                    showMessage('日記を保存し、分析しました', 'success');
+                    loadScores();
+                } catch (error) {
+                    showMessage('保存に失敗しました', 'error');
+                }
+            } else {
+                showMessage('日記を保存しました（ローカル）', 'success');
+            }
+        }
+        
+        // 簡易日記分析
+        function analyzeDiary(content) {
+            const lines = content.split('\n').filter(l => l.trim());
+            const factKeywords = ['した', 'だった', '言った', '起きた'];
+            let factCount = 0;
+            
+            lines.forEach(line => {
+                if (factKeywords.some(kw => line.includes(kw))) factCount++;
+            });
+            
+            return Math.min(100, Math.round((factCount / lines.length) * 150));
+        }
+        
+        // 判断記録
+        async function saveDecision() {
+            const decision = document.getElementById('decision-input').value;
+            const reasoning = document.getElementById('reasoning-input').value;
+            
+            if (!decision.trim()) {
+                showMessage('判断内容を入力してください', 'error');
+                return;
+            }
+            
+            const decisions = JSON.parse(localStorage.getItem('decisions') || '[]');
+            decisions.push({
+                content: decision,
+                reasoning: reasoning,
+                timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('decisions', JSON.stringify(decisions));
+            
+            document.getElementById('decision-input').value = '';
+            document.getElementById('reasoning-input').value = '';
+            
+            showMessage('判断を記録しました', 'success');
+        }
+        
+        // タスク追加
+        function addTask() {
+            const taskInput = document.getElementById('task-input');
+            const content = taskInput.value.trim();
+            
+            if (!content) return;
+            
+            const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+            tasks.push({
+                id: Date.now(),
+                content: content,
+                completed: false,
+                createdAt: new Date().toISOString()
+            });
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            
+            taskInput.value = '';
+            loadTasks();
+        }
+        
+        // タスク読み込み
+        function loadTasks() {
+            const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+            const taskList = document.getElementById('task-list');
+            
+            if (tasks.length === 0) {
+                taskList.innerHTML = '<p style="color: var(--text-light); font-size: 14px;">タスクがありません</p>';
+                return;
+            }
+            
+            taskList.innerHTML = tasks.map(task => `
+                <div class="task-item ${task.completed ? 'completed' : ''}">
+                    <div>${task.content}</div>
+                    <div class="task-actions">
+                        ${!task.completed ? `<button onclick="completeTask(${task.id})">完了</button>` : ''}
+                        <button onclick="deleteTask(${task.id})" style="background: #ef4444;">削除</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // タスク完了
+        function completeTask(id) {
+            const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+            const task = tasks.find(t => t.id === id);
+            if (task) {
+                task.completed = true;
+                task.completedAt = new Date().toISOString();
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                loadTasks();
+                showMessage('タスクを完了しました', 'success');
+            }
+        }
+        
+        // タスク削除
+        function deleteTask(id) {
+            const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+            const filtered = tasks.filter(t => t.id !== id);
+            localStorage.setItem('tasks', JSON.stringify(filtered));
+            loadTasks();
+        }
+        
+        // メッセージ表示
+        function showMessage(text, type = 'success') {
+            const container = document.getElementById('message-container');
+            const message = document.createElement('div');
+            message.className = `message ${type}`;
+            message.textContent = text;
+            container.appendChild(message);
+            
+            setTimeout(() => message.remove(), 5000);
+        }
+    </script>
 </body>
 </html>
